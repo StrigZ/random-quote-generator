@@ -1,20 +1,30 @@
 import Author from './components/Author'
-// import AuthorPage from './components/AuthorPage/AuthorPage'
 import Header from './components/Header'
 import Quote from './components/Quote'
-
-const DUMMY_TEXT =
-    '“The first rule of any technology used in a business is that automation applied to an efficient operation will magnify the efficiency. The second is that automation applied to an inefficient operation will magnify the inefficiency.”'
+import { useSelector } from 'react-redux'
+import { selectQuoteState } from './store/quoteSlice'
 
 function App() {
+    const quoteState = useSelector(selectQuoteState)
+
+    const randomQuote = quoteState.randomQuote
     return (
         <>
             <Header />
-            <main className='max-w-[615px] mx-auto pt-[160px]'>
-                <Quote text={DUMMY_TEXT} />
-                <Author />
+            <main className='max-w-[615px] mx-auto pt-[160px] relative '>
+                {randomQuote ? (
+                    <>
+                        <Quote quoteText={randomQuote.text} />
+                        <Author quoteAuthor={randomQuote.author} />
+                    </>
+                ) : (
+                    <p className='font-bold text-4xl text-[#4F4F4F]  before:absolute before:-left-[100px]  before:w-2 before:h-full before:bg-[#F7DF94] '>
+                        Loading quote...
+                    </p>
+                )}
             </main>
-            {/* <AuthorPage quoteList={[DUMMY_TEXT, DUMMY_TEXT, DUMMY_TEXT]} /> */}
+            {/* TODO: Add routing
+             <AuthorPage quoteList={[DUMMY_TEXT, DUMMY_TEXT, DUMMY_TEXT]} /> */}
         </>
     )
 }
