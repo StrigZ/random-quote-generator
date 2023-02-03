@@ -9,11 +9,8 @@ const Header = () => {
     const navigate = useNavigate()
 
     const getNewRandomQuoteHandler = () => {
-        if (location.pathname === '/') {
-            dispatch(selectRandomQuote())
-        } else {
-            navigate('/')
-        }
+        dispatch(selectRandomQuote())
+        if (location.pathname !== '/') navigate('/')
     }
 
     return (
